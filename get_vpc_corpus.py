@@ -26,18 +26,14 @@ SEED_PARTICLES = constants.PARTICLES
 
 def write_args_to_file(output_file, arguments, write_all=True,
                        cutoff=None, verbs_seen=[], min_count=25):
-    """
-    """
     words_written = set()
     v_n_to_pop = set()
     with open(output_file, 'a') as f:
         for word, year_to_count in arguments.items():
             v, n = word
-            if any([v_inflect >= cutoff for v_inflect in get_inflections(v)]):
-                print(f"Skipping {v}")
+            if (cutoff is not None and
+                any([v_inflect >= cutoff for v_inflect in get_inflections(v)])):
                 continue
-            else:
-                print(f"Writing {v}")
             if not write_all:
                 if v not in words_written:
                     words_written.add(v)
