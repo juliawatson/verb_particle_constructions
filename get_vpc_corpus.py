@@ -148,7 +148,7 @@ def get_vpc_corpus(output_file, min_year=1800):
                                 vn_to_year_to_count[vn_tuple][str((int(year) // 10) * 10)] = count
         vn_to_year_to_count, new_verbs_written = write_args_to_file(
             output_file, vn_to_year_to_count, write_all=False,
-            cutoff=get_stem(end_word)[:2], verbs_seen=verbs_seen)
+            cutoff=end_word, verbs_seen=verbs_seen)
         verbs_written.update(new_verbs_written)
         os.system('rm {}'.format(local_path))
 
