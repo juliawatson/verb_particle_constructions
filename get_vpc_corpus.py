@@ -102,7 +102,7 @@ def get_vpc_corpus(output_file, min_year=1800):
     verbs_seen = set()
     verbs_written = set()
     
-    vn_to_year_to_count = defaultdict(dict)
+    vn_to_year_to_count = defaultdict(lambda: defaultdict(int))
     for i in range(99):
     # for i in [76]:
         local_path = extract_verbs.download_file(i, file_type="verbargs")
@@ -142,10 +142,7 @@ def get_vpc_corpus(output_file, min_year=1800):
                                 break
                             year, count = year_count
                             count = int(count.strip())
-                            if year in vn_to_year_to_count[vn_tuple]:
-                                vn_to_year_to_count[vn_tuple][str((int(year) // 10) * 10)] += count
-                            else:
-                                vn_to_year_to_count[vn_tuple][str((int(year) // 10) * 10)] = count
+                            vn_to_year_to_count[vn_tuple][str((int(year) // 10) * 10)] += count
         vn_to_year_to_count, new_verbs_written = write_args_to_file(
             output_file, vn_to_year_to_count, write_all=False,
             cutoff=end_word, verbs_seen=verbs_seen)
