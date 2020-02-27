@@ -44,7 +44,8 @@ def write_args_to_file(output_file, arguments, write_all=True,
                 continue
             for year in sorted(list(year_to_count.keys())):
                 year_counts.append(','.join([str(year), str(year_to_count[year])]))
-            f.write('\t'.join([v, n, str(total_count)] + year_counts) + '\n')
+            first_occurrence = min(year_to_count.keys())
+            f.write('\t'.join([v, n, str(total_count), str(first_occurrence)] + year_counts) + '\n')
     for w in v_n_to_pop:
         arguments.pop(w)
     return arguments, words_written
