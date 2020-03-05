@@ -3,3 +3,8 @@ __pycache__/
 *.pyc
 google_ngrams/
 *.csv
+sgns/
+verb_vectors/
+*.zip
+*.pickle
+*.p
