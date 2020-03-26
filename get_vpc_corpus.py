@@ -15,7 +15,7 @@ def load_wordlist(data_path):
     result = {}
     with open(data_path, "r") as f:
         for line in f:
-            line = line.strip().split(",")
+            line = line.split()
             result[line[0]] = float(line[1])
     return result
 
@@ -98,6 +98,8 @@ def get_vpc_corpus(output_file, min_year=1800):
     1800,3  1810,12 1820,15 ....
     """
     # word list is seed verbs plus inflected seed verbs
+    # if we want to run it differently, we'd have to change the loop
+    # below to not skip words based on the seed words.
     word_list = SEED_VERBS
     word_list = sorted(word_list)
     verbs_seen = set()

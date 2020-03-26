@@ -48,8 +48,7 @@ def download_file(i, file_type="nodes"):
 
 
 def get_by_tags(output_path, tags, min_total_count=10000):
-    verb_to_count = defaultdict(int)
-    
+    verb_to_count = defaultdict(lambda: defaultdict(int))
     for i in range(12, 99):  # 12 is where the non-number words start
         local_path = download_file(i)
         
@@ -72,16 +71,37 @@ def get_by_tags(output_path, tags, min_total_count=10000):
                 pos = ngram.split('/')[1]
                 if pos not in tags:
                     continue
-                verb_to_count[first_word] += count
+                # verb_to_count[first_word] += count
+                line = line.split('\t')
+
+                ### START: Copied from get_vpc_corpus.py
+                year_counts = line[3:]
+                # print(year_counts)
+                # vn_tuple = (first_word, arg)
+                for year_count in year_counts:
+                    year_count = year_count.split(',')
+                    if len(year_count) != 2:
+                        break
+                    year, count = year_count
+                    count = int(count.strip())
+                    verb_to_count[first_word][str((int(year) // 10) * 10)] += count
+                ### END: Copied from get_vpc_corpus.py
 
         print("removing {}".format(local_path))
         os.remove(local_path)
 
-    with open(output_path, "w") as f:
-        for verb, count in verb_to_count.items():
-            f.write("{},{}\n".format(verb, count))
+    with open(output_path, "w") as f:            
+        ### START: Copied from get_vpc_corpus.py
+        for word, year_to_count in verb_to_count.items():
+            year_counts = []
+            total_count = sum(list(year_to_count.values()))
+            for year in sorted(list(year_to_count.keys())):
+                year_counts.append(','.join([str(year), str(year_to_count[year])]))
+            first_occurrence = min(year_to_count.keys())
+            f.write('\t'.join([word, str(total_count), str(first_occurrence)] + year_counts) + '\n')
+        ### END: Copied from get_vpc_corpus.py
+
 
 
 if __name__ == "__main__":
-    # get_by_tags("verb_counts.csv", VERB_LABELS)
-    get_by_tags("noun_counts.csv", NOUN_LABELS)
+    get_by_tags("verb_counts.csv", VERB_LABELS)
