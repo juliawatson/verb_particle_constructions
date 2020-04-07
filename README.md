@@ -2,7 +2,7 @@
 
 This is the repository for the paper "word up: An Analogy-Based Approach to Predicting the Emergence of Novel Verb Particle Constructions". A breakdown of the files in this repository is below.
 
-### Jupyter notebooks
+### Experiments
  * evaluation.ipynb: Experiments predicting novel VPC emergence (ranking methods and logistic regression evaluation).
  * vpc_corpus_stats.ipynb: Visualizations and statistics associated with the historical VPC corpus.
  
