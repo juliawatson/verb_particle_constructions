@@ -1,6 +1,6 @@
 # Modeling VPC Emergence
 
-This is the repository for the paper "word up: An Analogy-Based Approach to Predicting the Emergence of Novel Verb Particle Constructions".
+This is the repository for the paper "word up: An Analogy-Based Approach to Predicting the Emergence of Novel Verb Particle Constructions". A breakdown of the files in this repository is below.
 
 ### Jupyter notebooks
  * evaluation.ipynb: Experiments predicting novel VPC emergence (ranking methods and logistic regression evaluation).
